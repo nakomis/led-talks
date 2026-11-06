@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# Check out the post-merge state on PRs, so CI validates what will land.
+env:
+  CHECKOUT_REF: ${{ github.event_name == 'pull_request' && format('refs/pull/{0}/merge', github.event.pull_request.number) || github.sha }}
+
+jobs:
+  encoder:
+    name: C encoder tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+      - run: make -C encoder/core/tests coverage
+
+  ci-status:
+    name: CI Status
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [encoder]
+    steps:
+      - name: Fail if any job failed
+        run: |
+          for r in ${{ join(needs.*.result, ' ') }}; do
+            if [ "$r" = "failure" ] || [ "$r" = "cancelled" ]; then echo "A job $r"; exit 1; fi
+          done
