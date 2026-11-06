@@ -24,11 +24,21 @@ jobs:
           ref: ${{ env.CHECKOUT_REF }}
       - run: make -C encoder/core/tests coverage
 
+  decoder:
+    name: Swift decoder tests
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+      - run: swift test
+        working-directory: reader/LEDTalksKit
+
   ci-status:
     name: CI Status
     runs-on: ubuntu-latest
     if: always()
-    needs: [encoder]
+    needs: [encoder, decoder]
     steps:
       - name: Fail if any job failed
         run: |
