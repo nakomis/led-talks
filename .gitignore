@@ -71,3 +71,6 @@ build/
 DerivedData/
 reader/app/*.xcodeproj/
 .swiftpm/
+
+# Claude Code worktrees
+.claude/
