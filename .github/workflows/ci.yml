@@ -34,11 +34,26 @@ jobs:
       - run: swift test
         working-directory: reader/LEDTalksKit
 
+  app:
+    name: iOS app build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ env.CHECKOUT_REF }}
+      - run: brew install xcodegen
+      - run: xcodegen generate
+        working-directory: reader/app
+      - run: >
+          xcodebuild -scheme LEDTalks -destination 'generic/platform=iOS Simulator'
+          CODE_SIGNING_ALLOWED=NO build
+        working-directory: reader/app
+
   ci-status:
     name: CI Status
     runs-on: ubuntu-latest
     if: always()
-    needs: [encoder, decoder]
+    needs: [encoder, decoder, app]
     steps:
       - name: Fail if any job failed
         run: |
