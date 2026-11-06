@@ -35,6 +35,8 @@ Devices blink their status LED; an iPhone camera reads it. Plane project: **TALK
 ## Testing
 
 - C: `make -C encoder/core/tests test` (and `coverage`); 70% minimum, aim for all of the core.
+- ESP-IDF port (build only; v5.5): `. ~/esp/v5.5/esp-idf/export.sh && cd encoder/esp-idf/examples/status && idf.py set-target esp32s3 && idf.py build`.
+- Zephyr port (build only; NCS 3.4.2): `source ~/ncs/.venv/bin/activate && cd ~/ncs/v3.4.2 && west build -p --no-sysbuild -b promicro_nrf52840/nrf52840/uf2 -d build/talk3 <repo>/encoder/zephyr/samples/status -- -DEXTRA_ZEPHYR_MODULES=<repo>/encoder/zephyr`.
 - Swift: `cd reader/LEDTalksKit && swift test`.
 - App: `cd reader/app && xcodegen generate && xcodebuild -scheme LEDTalks -destination 'generic/platform=iOS Simulator' build`.
 - Real cameras can only be tested on a phone; the synthetic camera (`SyntheticCamera`) models

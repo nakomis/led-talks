@@ -1,0 +1,13 @@
+config LED_TALKS
+	bool "LED Talks: send messages by blinking an LED"
+	depends on GPIO
+	help
+	  Plays LED Talks messages (docs/protocol.md) on a GPIO or PWM LED from a kernel timer.
+
+config LED_TALKS_PWM
+	bool "LED Talks: PWM LEDs (PAM-4 brightness levels)"
+	depends on LED_TALKS
+	select PWM
+	help
+	  Adds lt_zephyr_init_pwm(). The PWM period must be 100 microseconds or less (10 kHz or
+	  faster) so no camera exposure sees the PWM itself.

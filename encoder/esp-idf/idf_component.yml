@@ -1,0 +1,7 @@
+version: "0.1.0"
+description: "LED Talks: send a message by blinking an LED, for an iPhone camera to decode"
+url: https://github.com/nakomis/led-talks
+license: CC0-1.0
+dependencies:
+  idf: ">=5.0"
+  espressif/led_strip: "^3"
