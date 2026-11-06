@@ -1,0 +1,16 @@
+/* Pro Micro nRF52840: the board has led0 (P0.15) but no button. Wire a button from P0.17 to
+ * GND, as iphone-remote's fob does. */
+/ {
+	buttons {
+		compatible = "gpio-keys";
+
+		button0: button_0 {
+			gpios = <&gpio0 17 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+			label = "Status button";
+		};
+	};
+
+	aliases {
+		sw0 = &button0;
+	};
+};
