@@ -1,0 +1,61 @@
+<mxfile host="drawio">
+  <diagram id="led-talks" name="LED Talks">
+    <mxGraphModel dx="1200" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="420" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="dev" value="Device (tinycrypt, iphone-remote fob, …)" style="swimlane;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="20" y="40" width="300" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="app" value="Your firmware&lt;br&gt;(builds a status payload)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="dev">
+          <mxGeometry x="40" y="40" width="220" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="core" value="encoder/core&lt;br&gt;framing, training, whitening, CRC&lt;br&gt;(portable C)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="dev">
+          <mxGeometry x="40" y="120" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="port" value="Port: ESP-IDF (WS2812) or Zephyr (GPIO / PWM)&lt;br&gt;plays one symbol per period" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="dev">
+          <mxGeometry x="40" y="210" width="220" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="e1" style="endArrow=classic;html=1;" edge="1" parent="dev" source="app" target="core">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e2" style="endArrow=classic;html=1;" edge="1" parent="dev" source="core" target="port">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="led" value="LED" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="380" y="235" width="70" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="e3" style="endArrow=classic;html=1;" edge="1" parent="1" source="port" target="led">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="phone" value="iPhone: LED Talks app" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="520" y="40" width="540" height="300" as="geometry"/>
+        </mxCell>
+        <mxCell id="cam" value="Camera&lt;br&gt;120–240 fps, exposure and white balance locked" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="phone">
+          <mxGeometry x="20" y="195" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="roi" value="Region of interest&lt;br&gt;mean RGB per frame + timestamp" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="phone">
+          <mxGeometry x="20" y="60" width="200" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="kit" value="LEDTalksKit (Swift package)&lt;br&gt;timing recovery, training, nearest-symbol decode, CRC, status format" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="phone">
+          <mxGeometry x="280" y="60" width="230" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="ui" value="Decoded status, shown as text" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="phone">
+          <mxGeometry x="280" y="195" width="230" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="e5" style="endArrow=classic;html=1;" edge="1" parent="phone" source="cam" target="roi">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e6" style="endArrow=classic;html=1;" edge="1" parent="phone" source="roi" target="kit">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e7" style="endArrow=classic;html=1;" edge="1" parent="phone" source="kit" target="ui">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e4" value="light" style="endArrow=classic;html=1;dashed=1;strokeColor=#b85450;" edge="1" parent="1" source="led" target="cam">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -53,3 +53,21 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Planning
+PLAN.md
+
+# Coverage
+coverage/
+*.gcda
+*.gcno
+*.gcov
+lcov.info
+
+# Builds
+build/
+.build/
+*.dSYM/
+DerivedData/
+reader/app/*.xcodeproj/
+.swiftpm/
